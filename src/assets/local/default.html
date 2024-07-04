@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    html, body {
+        color: white;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+    body {
+        background-color: black;
+    }
+    .cloud-container {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+        height: 100vh;
+        z-index: 99999999;
+    }
+    .cloud, .cloud > img {
+        width: 80%;
+        height: auto;
+    }
+    .cloud > img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    .flex-wrapper {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        font-size: 20vh;
+    }
+    .background-container {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        overflow: hidden;
+    }
+    .background {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .background > img {
+        height: auto;
+        width: 100vw;
+        opacity: .5;
+    }
+    </style>
+</head>
+<body>
+    <div class="cloud-container">
+        <div class="flex-wrapper">
+            <div class="cloud"><!-- 🌩 -->
+                <img src="./ssg-icon-color.svg" alt="ssg">
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="background-container">
+        <div class="background">
+            <img src="./101_3515.jpg" alt="comp"/>
+        </div>
+    </div>
+    <script>
+        let cloud = document.querySelector('.cloud');
+        var cloudVisible = false;
+
+        function draw(timestamp) {
+            
+            let rand = Math.random();
+            if (rand >= .9) {
+                toggleCloud();
+                blickBackgroundColor();
+            }
+
+            window.requestAnimationFrame(draw);
+        }
+
+        function toggleCloud() {
+            if (cloudVisible) {
+                cloud.style.display = "none";
+            } else {
+                cloud.style.display = "block";
+            }
+            cloudVisible = !cloudVisible
+        }
+
+        function blickBackgroundColor() {
+            document.body.style.backgroundColor = getRandomColor();
+        }
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        draw();
+    </script>
+</body>
+</html>
