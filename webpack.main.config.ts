@@ -10,6 +10,9 @@ export const mainConfig: Configuration = {
    */
   entry: './src/main.ts',
   // Put your normal webpack config below here
+  // mode: 'development',
+  // devtool: 'eval',
+  // cache: true,
   module: {
     rules,
   },
