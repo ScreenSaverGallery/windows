@@ -12,6 +12,39 @@
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
+  "build": {
+    "appId": "org.metazoa.screensavergallery",
+    "productName": "ScreenSaverGallery",
+    "copyright": "Copyright © 2012 metazoa.org",
+    "publish": {
+      "provider": "generic",
+      "url": "https://github.com/ScreenSaverGallery"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "src/assets/ssg-icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "createDesktopShortcut": false,
+      "createStartMenuShortcut": false,
+      "runAfterFinish": false,
+      "include": "nsis/installer.nsh",
+      "installerIcon": "src/assets/ssg-icon.ico",
+      "installerHeaderIcon": "src/assets/ssg-icon.ico",
+      "artifactName": "${productName} User Setup ${version}.${ext}"
+    }
+  },
   "devDependencies": {
     "@electron-forge/cli": "^7.4.0",
     "@electron-forge/maker-deb": "^7.4.0",
@@ -22,6 +55,7 @@
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron-forge/plugin-webpack": "^7.4.0",
     "@electron/fuses": "^1.8.0",
+    "@imxeno/electron-forge-maker-nsis": "^6.0.1",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
@@ -32,9 +66,8 @@
     "electron-forge-maker-nsis": "^25.0.0-alpha.10",
     "eslint": "^8.0.1",
     "eslint-plugin-import": "^2.25.0",
-    "fork-ts-checker-webpack-plugin": "^7.2.13",
+    "fork-ts-checker-webpack-plugin": "^9.0.2",
     "node-loader": "^2.0.0",
-    "path-browserify": "^1.0.1",
     "style-loader": "^3.0.0",
     "ts-loader": "^9.2.2",
     "ts-node": "^10.0.0",

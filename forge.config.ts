@@ -19,7 +19,7 @@ const config: ForgeConfig = {
   makers: [
     // new MakerSquirrel({}),
     {
-      name: 'electron-forge-maker-nsis',
+      name: '@imxeno/electron-forge-maker-nsis',
       config: {}
     },
     new MakerZIP({}, ['darwin']),
@@ -32,15 +32,17 @@ const config: ForgeConfig = {
       mainConfig,
       renderer: {
         config: rendererConfig,
+        nodeIntegration: true,
         entryPoints: [
-          // {
-          //   html: './src/modal/index.html',
-          //   js: './src/modal/index.ts',
-          //   name: 'config_window',
-          //   preload: {
-          //     js: './src/modal/preload.ts'
-          //   }
-          // }
+          {
+            html: './src/app/modal/modal.html',
+            js: './src/app/modal/renderer.ts',
+            name: 'config_window',
+            nodeIntegration: true,
+            preload: {
+              js: './src/app/modal/preload.ts'
+            }
+          }
         ]
       },
     }),
