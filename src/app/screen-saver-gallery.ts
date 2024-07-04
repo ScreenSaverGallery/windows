@@ -24,7 +24,7 @@ export class ScreenSaverGallery {
 		// screens
 		let screens = screen.getAllDisplays();
 		const windows = [];
-		console.log("screens", screens);
+		// console.log("screens", screens);
 
 		for (const s of screens) {
 			const w = this.createSSGWindow(s.bounds.x, s.bounds.y, s.bounds.width, s.bounds.height, this.devMode);
