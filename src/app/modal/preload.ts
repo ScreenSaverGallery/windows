@@ -1,4 +1,4 @@
-const { shell, contextBridge, ipcRenderer } = require('electron');
+import { shell, contextBridge, ipcRenderer } from 'electron';
 // import { shell, contextBridge, ipcRenderer } from 'electron';
 // 
 console.log('--------- ♥️ MODAL.JS ♥️ ---------');
@@ -12,22 +12,22 @@ contextBridge.exposeInMainWorld('action', {
     adult: setAdult
 });
 // 
-function setDevMode(value) {
+function setDevMode(value: boolean) {
     sendMessage({'devMode': true, value: value});
 }
 
-function setMuted(value) {
+function setMuted(value: boolean) {
     sendMessage({'muted': true, value: value});
 }
 
-function setAdult(value) {
+function setAdult(value: boolean) {
     sendMessage({'adult': true, value: value});
 }
 
-function openLink(link) {
+function openLink(link: string) {
     shell.openExternal(link);
 }
 
-function sendMessage(message) {
+function sendMessage(message: any) {
     ipcRenderer.send('message', message);
 }

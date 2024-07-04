@@ -90,18 +90,18 @@
                 </div>
                 <div class="checkboxes">
                     <div class="mute checkbox">
-                        <input type="checkbox" name="mute" id="mute-checkbox" onchange="muteChanged(event)">
+                        <input type="checkbox" name="mute" id="mute-checkbox">
                         <label for="mute-checkbox">Mute Sound</label>
                     </div>
                     <div class="adult checkbox">
-                        <input type="checkbox" name="adult" id="adult-checkbox" onchange="adultChanged(event)">
+                        <input type="checkbox" name="adult" id="adult-checkbox">
                         <label for="adult-checkbox">Allow Adult Content</label>
                     </div>
                 </div>
             </div>
             <div id="debug">
                 <div class="debug checkbox">
-                    <input onchange="debugChanged(event)" type="checkbox" name="" id="debug-checkbox">
+                    <input type="checkbox" name="" id="debug-checkbox">
                     <label for="debug-checkbox">Debug Mode</label>
                 </div>
                 <div class="note">
@@ -111,57 +111,12 @@
         </div>
         <div id="controls">
             <div class="comunication">
-                <a href="#" onclick="openLink('https://screensaver.gallery/support-us?app=win')" class="support button emoji">🍓 Support Us</a>
-                <a href="#" onclick="openLink('https://discord.com/invite/QJtRUYptRR')" class="contact button emoji">😎 Talk to Us</a>
-                <a href="#" onclick="openLink('https://screensaver.gallery/continuous-open-call?app=win')" class="call button emoji">💥 Suggest Art</a>
+                <a href="#" id="support" class="support button emoji">🍓 Support Us</a>
+                <a href="#" id="contact" class="contact button emoji">😎 Talk to Us</a>
+                <a href="#" id="call" class="call button emoji">💥 Suggest Art</a>
             </div>
-            <a href="#" onclick="closeWindow()" class="close button">OK</a>
+            <a href="#" id="close" class="close button">OK</a>
         </div>
     </div>
-    <script>
-        const searchParams = new URLSearchParams(window.location.search);
-        const config = {
-            devMode: searchParams.get('devMode') === 'true',
-            adult: searchParams.get('adult') === 'true',
-            muted: searchParams.get('muted') === 'true'
-        }
-        const muteCheckboxElm = document.querySelector('#mute-checkbox');
-        muteCheckboxElm.checked = config.muted;
-        const adultCheckboxElm = document.querySelector('#adult-checkbox');
-        adultCheckboxElm.checked = config.adult;
-        const debugCheckboxElm = document.querySelector('#debug-checkbox');
-        debugCheckboxElm.checked = config.devMode;
-
-        
-
-        console.log('config', config);
-
-        function muteChanged(event) {
-            const { checked } = event.target;
-            // console.log('muteChanged checked?', checked);
-            window.action.muted(checked);
-        }
-
-        function adultChanged(event) {
-            const { checked } = event.target;
-            window.action.adult(checked);
-        }
-
-        function debugChanged(event) {
-            const { checked } = event.target;
-            window.action.devMode(checked);
-        }
-
-        function openLink(link) {
-            window.action.openLink(link);
-            // console.log('openLink modal.html', link);
-        }
-
-        function closeWindow() {
-            // window.action.close();
-            console.log('closeWindow');
-            window.close();
-        }
-    </script>
 </body>
 </html>
