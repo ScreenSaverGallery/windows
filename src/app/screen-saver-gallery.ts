@@ -49,7 +49,10 @@ export class ScreenSaverGallery {
 				devTools: dev ? true : false
 			}
 		});
+		// open dev tools for dev mode
 		if (dev) window.webContents.openDevTools();
+		// set always on top
+		window.setAlwaysOnTop(true);
 		// set user agent
 		window.webContents.setUserAgent(window.webContents.getUserAgent() + ` SSG/${app.getVersion()} (${BUILD})`);
 		// hide the cursor
