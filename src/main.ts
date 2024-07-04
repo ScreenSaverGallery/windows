@@ -8,6 +8,11 @@ import { v4 as uuidv4 } from 'uuid'; // module not found error
 import * as path from 'path';
 import * as ChildProcess from 'child_process';
 
+// 🐶 TODO: add Tray (see: https://electronjs.org/docs/latest/api/tray)
+
+declare const CONFIG_WINDOW_WEBPACK_ENTRY: string;
+declare const CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
 	app.quit();
@@ -55,6 +60,8 @@ app.on("ready", () => {
 	});
 	
 	const argNum = 1; // in production it is 1, for dev set 2
+	console.log('CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY', CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY);
+	console.log('CONFIG_WINDOW_WEBPACK_ENTRY', CONFIG_WINDOW_WEBPACK_ENTRY);
 	if(process.argv.length > 1) {
 		/* OPTIONS DIALOG (MODAL) */
 		if ( process.argv[argNum] === "/C" || process.argv[argNum].match(/^\/c/)) { // configuration
@@ -64,21 +71,21 @@ app.on("ready", () => {
 				webPreferences: {
 					sandbox: false,
 					nodeIntegration: true,
-					preload: `${__dirname}/assets/modal/modal.js`,
+					preload: CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY, // `${__dirname}/assets/modal/modal.js`,
 					contextIsolation: true,
-					devTools: true
+					devTools: false
 				},
 				show: false,
 				frame: false
 			});
-			// no menu
+			// no window menu
 			modal.setMenu(null);
 			remote.enable(modal.webContents);
 			const modalUrl = "file://" + __dirname + "/assets/modal/modal.html";
-			modal.loadURL(`${modalUrl}?devMode=${devMode}&muted=${muted}&adult=${adult}`);
-			// modal.loadURL(`${CONFIG_WINDOW_WEBPACK_ENTRY}?devMode=${devMode}&muted=${muted}&adult=${adult}`);
+			// modal.loadURL(`${modalUrl}?devMode=${devMode}&muted=${muted}&adult=${adult}`);
+			modal.loadURL(`${CONFIG_WINDOW_WEBPACK_ENTRY}?devMode=${devMode}&muted=${muted}&adult=${adult}`);
 			// modal.loadURL(CONFIG_WINDOW_WEBPACK_ENTRY, {});
-			// modal.webContents.openDevTools();
+			// modal.webContents.openDevTools(); // temp
 
 			modal.once('ready-to-show', () => {
 				modal.show();
