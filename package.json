@@ -34,7 +34,7 @@
     },
     "nsis": {
       "oneClick": true,
-      "perMachine": false,
+      "perMachine": true,
       "allowElevation": false,
       "createDesktopShortcut": false,
       "createStartMenuShortcut": false,
@@ -42,7 +42,7 @@
       "include": "nsis/installer.nsh",
       "installerIcon": "src/assets/ssg-icon.ico",
       "installerHeaderIcon": "src/assets/ssg-icon.ico",
-      "artifactName": "${productName} User Setup ${version}.${ext}"
+      "artifactName": "${productName} Admin Install ${version}.${ext}"
     }
   },
   "devDependencies": {
