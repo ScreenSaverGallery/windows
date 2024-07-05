@@ -9,6 +9,7 @@ Artworks in the ScreenSaverGallery are curated to add a new dimension by placing
 ## Installation
 ### For Developers: 
 1. Clone the repository: ```git clone https://github.com/ScreenSaverGallery/windows.git```
+> **Note**: This repository contains two branches. The `main`, which is the base for the whole project, and `admin-setup`, which contains additional setup for the [`nsis`](nsis) installer. By default, ScreenSaverGallery is installed by (and for) a specific user only and does not require administrator privileges. In some cases (e.g. public computers - libraries, universities, companies, ...) ScreenSaverGallery can be installed by the computer administrators to be available to every user of the computer. And this is the case where the `admin-setup' branch comes into play.
 2. Open the project in your favorite IDE (eg. VS Code).
 3. From the terminal (PowerShell is recomended) run the following: 
 - **start** `yarn start`
@@ -18,7 +19,7 @@ Pack the app for selected targets (see: [`package.json`](package.json))
 - **make** `yarn make`
 Create windows nsis installator (see: [`package.json`](package.json))
 
-> Note: You must setup your own `src/app/env.ts` file and its respective variables. The file `src/app/env.example.ts` tells you how. These variables (urls) are not yet publicly available as the content is subject to further development. If you want to participate on ScreenSaverGallery project, feel free to contact us to get the active urls. If you want to use this code for your own needs, set up urls of your choice. In that case also do not use the name `ScreenSaverGallery` as is and  replace the ScreenSaverGallery icon with your own.
+> **Note**: You must setup your own `src/app/env.ts` file and its respective variables. The file `src/app/env.example.ts` tells you how. These variables (urls) are not yet publicly available as the content is subject to further development. If you want to participate on ScreenSaverGallery project, feel free to contact us to get the active urls. If you want to use this code for your own needs, set up urls of your choice. In that case also do not use the name `ScreenSaverGallery` as is and  replace the ScreenSaverGallery icon with your own.
 
 
 ### For Users:
