@@ -86,7 +86,7 @@ export class ScreenSaverGallery {
 		var code = '';
 		code += `navigator.id = "${this.store.getId}";`;
 		code += `navigator.muted = ${this.store.getMuted};`;
-		code += `navigator.adult = ${this.store.getAdult};`;
+		code += `navigator.sensitive = ${this.store.getSensitive};`;
 		if (!dev) {
 			// exit if mousemove, keydown, click
 			code += 'document.addEventListener("mousemove", () => { window.close(); });';

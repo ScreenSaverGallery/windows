@@ -25,8 +25,8 @@ export class Store {
         return this.data.id;
     }
 
-    get getAdult(): boolean {
-        return this.data.adult;
+    get getSensitive(): boolean {
+        return this.data.sensitive;
     }
 
     get getMuted(): boolean {
@@ -46,8 +46,8 @@ export class Store {
         // fs.writeFileSync(this.path, JSON.stringify(this.data));
     }
 
-    set setAdult(value: boolean) {
-        this.data.adult = value;
+    set setSensitive(value: boolean) {
+        this.data.sensitive = value;
         this.writeData();
         // fs.writeFileSync(this.path, JSON.stringify(this.data));
     }

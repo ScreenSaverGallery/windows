@@ -32,13 +32,13 @@ updater.check();
 const store: Store = new Store({
 	userDataPath: app.getPath('userData'),
 	configName: 'config',
-	defaults: { devMode: false, muted: false, adult: false, id: undefined }
+	defaults: { devMode: false, muted: false, sensitive: false, id: undefined }
 });
 // remote window – ssg options
 const remoteWindow = ipcMain;
 // devMode
 let devMode = store.getDevMode;
-const adult = store.getAdult;
+const sensitive = store.getSensitive;
 const muted = store.getMuted;
 if (!store.getId) store.setId = uuidv4(); // set id for navigator if not set
 
@@ -55,7 +55,7 @@ app.on("ready", () => {
 	remoteWindow.on('message', (event: any, data: any) => {
 		console.log('data', data);
 		if (data.devMode) store.setDevMode = data.value;
-		if (data.adult) store.setAdult = data.value;
+		if (data.sensitive) store.setSensitive = data.value;
 		if (data.muted) store.setMuted = data.value;
 	});
 	
@@ -82,8 +82,8 @@ app.on("ready", () => {
 			modal.setMenu(null);
 			remote.enable(modal.webContents);
 			const modalUrl = "file://" + __dirname + "/assets/modal/modal.html";
-			// modal.loadURL(`${modalUrl}?devMode=${devMode}&muted=${muted}&adult=${adult}`);
-			modal.loadURL(`${CONFIG_WINDOW_WEBPACK_ENTRY}?devMode=${devMode}&muted=${muted}&adult=${adult}`);
+			// modal.loadURL(`${modalUrl}?devMode=${devMode}&muted=${muted}&sensitive=${sensitive}`);
+			modal.loadURL(`${CONFIG_WINDOW_WEBPACK_ENTRY}?devMode=${devMode}&muted=${muted}&sensitive=${sensitive}`);
 			// modal.loadURL(CONFIG_WINDOW_WEBPACK_ENTRY, {});
 			// modal.webContents.openDevTools(); // temp
 

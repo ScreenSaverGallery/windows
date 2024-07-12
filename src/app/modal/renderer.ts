@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchParams = new URLSearchParams(window.location.search);
     const config = {
         devMode: searchParams.get('devMode') === 'true',
-        adult: searchParams.get('adult') === 'true',
+        sensitive: searchParams.get('sensitive') === 'true',
         muted: searchParams.get('muted') === 'true'
     }
     const links = {
@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const muteCheckboxElm: HTMLInputElement | null = document.querySelector('#mute-checkbox');
     if (muteCheckboxElm) muteCheckboxElm.checked = config.muted;
-    const adultCheckboxElm : HTMLInputElement | null = document.querySelector('#adult-checkbox');
-    if (adultCheckboxElm) adultCheckboxElm.checked = config.adult;
+    const sensitiveCheckboxElm : HTMLInputElement | null = document.querySelector('#sensitive-checkbox');
+    if (sensitiveCheckboxElm) sensitiveCheckboxElm.checked = config.sensitive;
     const debugCheckboxElm : HTMLInputElement | null = document.querySelector('#debug-checkbox');
     if (debugCheckboxElm) debugCheckboxElm.checked = config.devMode;
     
@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
     muteCheckboxElm?.addEventListener('change', (event: any) => {
         muteChanged(event);
     });
-    adultCheckboxElm?.addEventListener('change', (event: any) => {
-        adultChanged(event);
+    sensitiveCheckboxElm?.addEventListener('change', (event: any) => {
+        sensitiveChanged(event);
     });
     debugCheckboxElm?.addEventListener('change', (event: any) => {
         debugChanged(event);
@@ -54,8 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
     closeElm?.addEventListener('click', () => {
         closeWindow();
     });
-
-    console.log('config', config);
 });
 
 
@@ -65,9 +63,9 @@ export function muteChanged(event: any) {
     window.action.muted(checked);
 }
 
-export function adultChanged(event: any) {
+export function sensitiveChanged(event: any) {
     const { checked } = event.target;
-    window.action.adult(checked);
+    window.action.sensitive(checked);
 }
 
 export function debugChanged(event: any) {
@@ -77,12 +75,9 @@ export function debugChanged(event: any) {
 
 export function openLink(link: string) {
     window.action.openLink(link);
-    // console.log('openLink modal.html', link);
 }
 
 export function closeWindow() {
-    // window.action.close();
-    console.log('closeWindow');
     window.close();
     return true;
 }

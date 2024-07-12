@@ -33,7 +33,7 @@ The technical implementation of ScreenSaverGallery is straightforward yet effect
 ## Features
 - Display a variety of digital and online artworks as a screensaver.
 - Control screensaver's sound by mute or unmute them in the ScreenSaverGallery options by setting browser navigator param `muted=true`.
-- Allow or dissable potentially inappropriate content in the ScreenSaverGallery options by setting browser navigator param `adult=false`.
+- Allow or dissable potentially inappropriate or sensitive content in the ScreenSaverGallery options by setting browser navigator param `sensitive=false`.
 - Support service worker for offline mode.
 
 ## History

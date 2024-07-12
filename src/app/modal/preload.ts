@@ -9,7 +9,7 @@ contextBridge.exposeInMainWorld('action', {
     close: close,
     devMode: setDevMode,
     muted: setMuted,
-    adult: setAdult
+    sensitive: setSensitive
 });
 // 
 function setDevMode(value: boolean) {
@@ -20,8 +20,8 @@ function setMuted(value: boolean) {
     sendMessage({'muted': true, value: value});
 }
 
-function setAdult(value: boolean) {
-    sendMessage({'adult': true, value: value});
+function setSensitive(value: boolean) {
+    sendMessage({'sensitive': true, value: value});
 }
 
 function openLink(link: string) {
