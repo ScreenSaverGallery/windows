@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const config = {
         devMode: searchParams.get('devMode') === 'true',
         sensitive: searchParams.get('sensitive') === 'true',
-        muted: searchParams.get('muted') === 'true'
+        muted: searchParams.get('muted') === 'true',
+        lowVision: searchParams.get('lowVision') === 'true'
     }
     const links = {
         support: 'https://screensaver.gallery/support-us?app=win',
@@ -26,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sensitiveCheckboxElm) sensitiveCheckboxElm.checked = config.sensitive;
     const debugCheckboxElm : HTMLInputElement | null = document.querySelector('#debug-checkbox');
     if (debugCheckboxElm) debugCheckboxElm.checked = config.devMode;
+    const lowVisionCheckboxElm: HTMLInputElement | null = document.querySelector('#low-vision-checkbox');
+    if (lowVisionCheckboxElm) lowVisionCheckboxElm.checked = config.lowVision;
     
     const supportLinkElm: HTMLLinkElement | null = document.querySelector('#support');
     const contactLinkElm: HTMLLinkElement | null = document.querySelector('#contact');
@@ -41,12 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
     callLinkElm?.addEventListener('click', () => {
         openLink(links.call);
     });
-
     muteCheckboxElm?.addEventListener('change', (event: any) => {
         muteChanged(event);
     });
     sensitiveCheckboxElm?.addEventListener('change', (event: any) => {
         sensitiveChanged(event);
+    });
+    lowVisionCheckboxElm?.addEventListener('change', (event: any) => {
+        lowVisionChanged(event);
     });
     debugCheckboxElm?.addEventListener('change', (event: any) => {
         debugChanged(event);
@@ -71,6 +76,11 @@ export function sensitiveChanged(event: any) {
 export function debugChanged(event: any) {
     const { checked } = event.target;
     window.action.devMode(checked);
+}
+
+export function lowVisionChanged(event: any) {
+    const { checked } = event.target;
+    window.action.lowVision(checked);
 }
 
 export function openLink(link: string) {

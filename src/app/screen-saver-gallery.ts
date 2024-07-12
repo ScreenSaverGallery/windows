@@ -87,6 +87,7 @@ export class ScreenSaverGallery {
 		code += `navigator.id = "${this.store.getId}";`;
 		code += `navigator.muted = ${this.store.getMuted};`;
 		code += `navigator.sensitive = ${this.store.getSensitive};`;
+		code += `navigator.lowVision = ${this.store.getLowVision};`;
 		if (!dev) {
 			// exit if mousemove, keydown, click
 			code += 'document.addEventListener("mousemove", () => { window.close(); });';
@@ -96,7 +97,7 @@ export class ScreenSaverGallery {
 		} else {
 			code += 'document.addEventListener("keydown", (e) => { if (e.keyCode == 27) { window.close(); } });';
 		}
-		code = `(() => {${code}})();`;
+		code = `(() => {${code}})();`; // run after document completely loaded
 		contents.executeJavaScript(code);
 	}
 }

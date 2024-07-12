@@ -33,6 +33,10 @@ export class Store {
         return this.data.muted;
     }
 
+    get getLowVision(): boolean {
+        return this.data.lowVision;
+    }
+
     set setDevMode(value: boolean) {
         console.log('setDevMode', value);
         this.data.devMode = value;
@@ -54,6 +58,11 @@ export class Store {
 
     set setMuted(value: boolean) {
         this.data.muted = value;
+        this.writeData();
+    }
+
+    set lowVision(value: boolean) {
+        this.data.lowVision = value;
         this.writeData();
     }
 

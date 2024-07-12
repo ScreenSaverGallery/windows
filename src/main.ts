@@ -29,10 +29,17 @@ const updater = new Updater();
 updater.check();
 
 // app user data storage
+const storeDefaults: any = {
+	devMode: false,
+	muted: false,
+	sensitive: false,
+	lowVision: false,
+	id: undefined
+}
 const store: Store = new Store({
 	userDataPath: app.getPath('userData'),
 	configName: 'config',
-	defaults: { devMode: false, muted: false, sensitive: false, id: undefined }
+	defaults: storeDefaults
 });
 // remote window – ssg options
 const remoteWindow = ipcMain;
@@ -40,6 +47,7 @@ const remoteWindow = ipcMain;
 let devMode = store.getDevMode;
 const sensitive = store.getSensitive;
 const muted = store.getMuted;
+const lowVision = store.getLowVision;
 if (!store.getId) store.setId = uuidv4(); // set id for navigator if not set
 
 // Quit when all windows are closed.
@@ -60,8 +68,8 @@ app.on("ready", () => {
 	});
 	
 	const argNum = 1; // in production it is 1, for dev set 2
-	console.log('CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY', CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY);
-	console.log('CONFIG_WINDOW_WEBPACK_ENTRY', CONFIG_WINDOW_WEBPACK_ENTRY);
+	// console.log('CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY', CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY);
+	// console.log('CONFIG_WINDOW_WEBPACK_ENTRY', CONFIG_WINDOW_WEBPACK_ENTRY);
 	if(process.argv.length > 1) {
 		/* OPTIONS DIALOG (MODAL) */
 		if ( process.argv[argNum] === "/C" || process.argv[argNum].match(/^\/c/)) { // configuration
@@ -83,7 +91,7 @@ app.on("ready", () => {
 			remote.enable(modal.webContents);
 			const modalUrl = "file://" + __dirname + "/assets/modal/modal.html";
 			// modal.loadURL(`${modalUrl}?devMode=${devMode}&muted=${muted}&sensitive=${sensitive}`);
-			modal.loadURL(`${CONFIG_WINDOW_WEBPACK_ENTRY}?devMode=${devMode}&muted=${muted}&sensitive=${sensitive}`);
+			modal.loadURL(`${CONFIG_WINDOW_WEBPACK_ENTRY}?devMode=${devMode}&muted=${muted}&sensitive=${sensitive}&lowVision=${lowVision}`);
 			// modal.loadURL(CONFIG_WINDOW_WEBPACK_ENTRY, {});
 			// modal.webContents.openDevTools(); // temp
 

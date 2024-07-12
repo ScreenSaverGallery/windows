@@ -32,9 +32,10 @@ The technical implementation of ScreenSaverGallery is straightforward yet effect
 
 ## Features
 - Display a variety of digital and online artworks as a screensaver.
-- Control screensaver's sound by mute or unmute them in the ScreenSaverGallery options by setting browser navigator param `muted=true`.
-- Allow or dissable potentially inappropriate or sensitive content in the ScreenSaverGallery options by setting browser navigator param `sensitive=false`.
+- Control screensaver's sound by mute or unmute them in the ScreenSaverGallery options by setting browser navigator param `muted=true`. Default: `false`.
+- Allow or dissable potentially inappropriate or sensitive content in the ScreenSaverGallery options by setting browser navigator param `sensitive=false`. Default: `false`.
 - Support service worker for offline mode.
+- Set the ScreenSaverGallery to be more accessible to persons with any kind of visual impairment by setting browser navigator param `low-vision=true`. Default: `false`.
 
 ## History
 ScreenSaverGallery was first launched by artists Barbora Trnkova and Tomas Javurek in 2012 as an artistic, somewhat ironic, project. In 2013, together with artist and curator c-merry and curator Sakrowski, we launched a continuous exhibition program that continues to this day. You can see the list of screensavers [here](https://screensaver.gallery/archive/screensavers). 
