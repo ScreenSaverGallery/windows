@@ -33,8 +33,8 @@ export class Store {
         return this.data.muted;
     }
 
-    get getLowVision(): boolean {
-        return this.data.lowVision;
+    get getVoiceOver(): boolean {
+        return this.data.voiceOver;
     }
 
     set setDevMode(value: boolean) {
@@ -61,8 +61,8 @@ export class Store {
         this.writeData();
     }
 
-    set lowVision(value: boolean) {
-        this.data.lowVision = value;
+    set voiceOver(value: boolean) {
+        this.data.voiceOver = value;
         this.writeData();
     }
 

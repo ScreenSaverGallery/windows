@@ -33,7 +33,7 @@ const storeDefaults: any = {
 	devMode: false,
 	muted: false,
 	sensitive: false,
-	lowVision: false,
+	voiceOver: false,
 	id: undefined
 }
 const store: Store = new Store({
@@ -47,7 +47,7 @@ const remoteWindow = ipcMain;
 let devMode = store.getDevMode;
 const sensitive = store.getSensitive;
 const muted = store.getMuted;
-const lowVision = store.getLowVision;
+const voiceOver = store.getVoiceOver;
 if (!store.getId) store.setId = uuidv4(); // set id for navigator if not set
 
 // Quit when all windows are closed.
@@ -91,7 +91,7 @@ app.on("ready", () => {
 			remote.enable(modal.webContents);
 			const modalUrl = "file://" + __dirname + "/assets/modal/modal.html";
 			// modal.loadURL(`${modalUrl}?devMode=${devMode}&muted=${muted}&sensitive=${sensitive}`);
-			modal.loadURL(`${CONFIG_WINDOW_WEBPACK_ENTRY}?devMode=${devMode}&muted=${muted}&sensitive=${sensitive}&lowVision=${lowVision}`);
+			modal.loadURL(`${CONFIG_WINDOW_WEBPACK_ENTRY}?devMode=${devMode}&muted=${muted}&sensitive=${sensitive}&voiceOver=${voiceOver}`);
 			// modal.loadURL(CONFIG_WINDOW_WEBPACK_ENTRY, {});
 			// modal.webContents.openDevTools(); // temp
 

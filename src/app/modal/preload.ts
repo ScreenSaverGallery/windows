@@ -10,7 +10,7 @@ contextBridge.exposeInMainWorld('action', {
     devMode: setDevMode,
     muted: setMuted,
     sensitive: setSensitive,
-    lowVision: setLowVision
+    voiceOver: setVoiceOver
 });
 // 
 function setDevMode(value: boolean) {
@@ -25,8 +25,8 @@ function setSensitive(value: boolean) {
     sendMessage({'sensitive': true, value: value});
 }
 
-function setLowVision(value: boolean) {
-    sendMessage({'lowVision': true, value: value});
+function setVoiceOver(value: boolean) {
+    sendMessage({'voiceOver': true, value: value});
 }
 
 function openLink(link: string) {

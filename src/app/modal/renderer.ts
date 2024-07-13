@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         devMode: searchParams.get('devMode') === 'true',
         sensitive: searchParams.get('sensitive') === 'true',
         muted: searchParams.get('muted') === 'true',
-        lowVision: searchParams.get('lowVision') === 'true'
+        voiceOver: searchParams.get('voiceOver') === 'true'
     }
     const links = {
         support: 'https://screensaver.gallery/support-us?app=win',
@@ -27,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sensitiveCheckboxElm) sensitiveCheckboxElm.checked = config.sensitive;
     const debugCheckboxElm : HTMLInputElement | null = document.querySelector('#debug-checkbox');
     if (debugCheckboxElm) debugCheckboxElm.checked = config.devMode;
-    const lowVisionCheckboxElm: HTMLInputElement | null = document.querySelector('#low-vision-checkbox');
-    if (lowVisionCheckboxElm) lowVisionCheckboxElm.checked = config.lowVision;
+    const voiceOverCheckboxElm: HTMLInputElement | null = document.querySelector('#low-vision-checkbox');
+    if (voiceOverCheckboxElm) voiceOverCheckboxElm.checked = config.voiceOver;
     
     const supportLinkElm: HTMLLinkElement | null = document.querySelector('#support');
     const contactLinkElm: HTMLLinkElement | null = document.querySelector('#contact');
@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     sensitiveCheckboxElm?.addEventListener('change', (event: any) => {
         sensitiveChanged(event);
     });
-    lowVisionCheckboxElm?.addEventListener('change', (event: any) => {
-        lowVisionChanged(event);
+    voiceOverCheckboxElm?.addEventListener('change', (event: any) => {
+        voiceOverChanged(event);
     });
     debugCheckboxElm?.addEventListener('change', (event: any) => {
         debugChanged(event);
@@ -78,9 +78,9 @@ export function debugChanged(event: any) {
     window.action.devMode(checked);
 }
 
-export function lowVisionChanged(event: any) {
+export function voiceOverChanged(event: any) {
     const { checked } = event.target;
-    window.action.lowVision(checked);
+    window.action.voiceOver(checked);
 }
 
 export function openLink(link: string) {
