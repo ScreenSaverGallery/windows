@@ -23,18 +23,7 @@ remote.initialize();
 // CRUCIAL !! ALLOW AUTOPLAY ON MEDIA
 app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
 
-// updater
-// const updater = new Updater();
-// updater.check();
-
-// app user data storage
-// const storeDefaults: any = {
-// 	devMode: false,
-// 	muted: false,
-// 	sensitive: false,
-// 	voiceOver: false,
-// 	id: undefined
-// }
+// store user data
 const store: Store = new Store({
 	userDataPath: app.getPath('userData'),
 	configName: 'config'
