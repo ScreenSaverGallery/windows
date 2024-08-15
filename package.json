@@ -1,12 +1,12 @@
 {
   "name": "screensavergallery",
   "productName": "ScreenSaverGallery",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "ScreenSaverGallery is the world`s only online gallery of contemporary digital art which utilizes the potential of the screensaver medium.",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
-    "start-config": "electron ./.webpack/main/index.js /C",
+    "start-config": "electron-forge start -- /C",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
@@ -29,8 +29,7 @@
             "ia32"
           ]
         }
-      ],
-      "icon": "src/assets/ssg-icon.ico"
+      ]
     },
     "nsis": {
       "oneClick": true,
@@ -54,16 +53,18 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron-forge/plugin-webpack": "^7.4.0",
+    "@electron-forge/publisher-github": "^7.4.0",
     "@electron/fuses": "^1.8.0",
-    "@imxeno/electron-forge-maker-nsis": "^6.0.1",
+    "@types/dotenv-webpack": "^7.0.7",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "@vercel/webpack-asset-relocator-loader": "1.7.3",
+    "app-builder-lib": "^25.0.0-alpha.10",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.0.0",
+    "dotenv-webpack": "^8.1.0",
     "electron": "31.1.0",
-    "electron-forge-maker-nsis": "^25.0.0-alpha.10",
     "eslint": "^8.0.1",
     "eslint-plugin-import": "^2.25.0",
     "fork-ts-checker-webpack-plugin": "^9.0.2",
@@ -83,6 +84,7 @@
     "@electron/remote": "^2.1.2",
     "electron-squirrel-startup": "^1.0.1",
     "electron-updater": "^6.2.1",
+    "rxjs": "^7.8.1",
     "uuid": "^10.0.0"
   }
 }
