@@ -54,8 +54,8 @@ const config: ForgeConfig = {
   publishers: [
     new PublisherGithub({
       repository: {
-        owner: 'metazoa-org',
-        name: 'ScreenSaverGallery/windows'
+        owner: 'ScreenSaverGallery',
+        name: 'windows'
       },
       draft: true
     })
