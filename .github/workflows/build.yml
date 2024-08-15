@@ -10,10 +10,10 @@ jobs:
                 node-version: 20
             - name: create env file
               run: |
-                touch .env
                 echo SSG_URL=${{ vars.SSG_URL }} >> .env
                 echo SSG_URL_DEV=${{ vars.SSG_URL_DEV }} >> .env
                 echo BUILD=${{ vars.BUILD }} >> .env
+                type .env
             - name: install dependencies
               run: npm install
             - name: build
