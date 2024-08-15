@@ -25,30 +25,32 @@ remote.initialize();
 app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
 
 // updater
-const updater = new Updater();
-updater.check();
+// const updater = new Updater();
+// updater.check();
 
 // app user data storage
-const storeDefaults: any = {
-	devMode: false,
-	muted: false,
-	sensitive: false,
-	voiceOver: false,
-	id: undefined
-}
+// const storeDefaults: any = {
+// 	devMode: false,
+// 	muted: false,
+// 	sensitive: false,
+// 	voiceOver: false,
+// 	id: undefined
+// }
 const store: Store = new Store({
 	userDataPath: app.getPath('userData'),
-	configName: 'config',
-	defaults: storeDefaults
+	configName: 'config'
 });
 // remote window – ssg options
 const remoteWindow = ipcMain;
+// ssg
+let ssg: ScreenSaverGallery | null = null;
+const ssgWindows: BrowserWindow[] = [];
 // devMode
-let devMode = store.getDevMode;
-const sensitive = store.getSensitive;
-const muted = store.getMuted;
-const voiceOver = store.getVoiceOver;
-if (!store.getId) store.setId = uuidv4(); // set id for navigator if not set
+let devMode = store.devMode;
+const sensitive = store.sensitive;
+const muted = store.muted;
+const voiceOver = store.voiceOver;
+if (!store.id) store.id = uuidv4(); // set id for navigator if not set
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
@@ -62,48 +64,24 @@ app.on("ready", () => {
 
 	remoteWindow.on('message', (event: any, data: any) => {
 		console.log('data', data);
-		if (data.devMode) store.setDevMode = data.value;
-		if (data.sensitive) store.setSensitive = data.value;
-		if (data.muted) store.setMuted = data.value;
+		if (data.devMode) store.devMode = data.value;
+		if (data.sensitive) store.sensitive = data.value;
+		if (data.muted) store.muted = data.value;
+		if (data.closed) app.quit();
 	});
 	
 	const argNum = 1; // in production it is 1, for dev set 2
+	const devArgNum = 2;
+	console.log('process.argv', process.argv);
 	// console.log('CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY', CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY);
 	// console.log('CONFIG_WINDOW_WEBPACK_ENTRY', CONFIG_WINDOW_WEBPACK_ENTRY);
 	if(process.argv.length > 1) {
 		/* OPTIONS DIALOG (MODAL) */
-		if ( process.argv[argNum] === "/C" || process.argv[argNum].match(/^\/c/)) { // configuration
-			const modal = new BrowserWindow({
-				width: 700, 
-				height: 400, 
-				webPreferences: {
-					sandbox: false,
-					nodeIntegration: true,
-					preload: CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY, // `${__dirname}/assets/modal/modal.js`,
-					contextIsolation: true,
-					devTools: false
-				},
-				show: false,
-				frame: false
-			});
-			// no window menu
-			modal.setMenu(null);
-			remote.enable(modal.webContents);
-			const modalUrl = "file://" + __dirname + "/assets/modal/modal.html";
-			// modal.loadURL(`${modalUrl}?devMode=${devMode}&muted=${muted}&sensitive=${sensitive}`);
-			modal.loadURL(`${CONFIG_WINDOW_WEBPACK_ENTRY}?devMode=${devMode}&muted=${muted}&sensitive=${sensitive}&voiceOver=${voiceOver}`);
-			// modal.loadURL(CONFIG_WINDOW_WEBPACK_ENTRY, {});
-			// modal.webContents.openDevTools(); // temp
-
-			modal.once('ready-to-show', () => {
-				modal.show();
-			});
-
-			modal.on('close', () => {
-				app.quit();
-			});
-
-			return;
+		if ( 
+			(process.argv[argNum] === "/C" || process.argv[argNum].match(/^\/c/)) ||
+			process.argv[devArgNum] && (process.argv[devArgNum] === "/C" || process.argv[devArgNum].match(/^\/c/))
+		) { // configuration
+			showConfigModal();
 		}
 		/* PREVIEW */
 		// TODO: https://support.microsoft.com/en-ca/help/182383/info-screen-saver-command-line-arguments
@@ -117,10 +95,12 @@ app.on("ready", () => {
 			return;
 		/* SCREENSAVER */
 		} else {
+			ssg = null;
 			const execPath = path.resolve(process.execPath);
 			registerScreenSaver(execPath, true);
-			const ssg = new ScreenSaverGallery(false, devMode, store);
+			ssg = new ScreenSaverGallery(false, devMode, store);
 			ssg.init();
+			// ssgWindows.push(...ssg.windows);
 		}
 
 		// The /a option change password, modal to window.
@@ -135,6 +115,47 @@ app.on("ready", () => {
 		
 	}
 });
+
+function showConfigModal(): void {
+	const modal = new BrowserWindow({
+		width: store.devMode ? 1400 : 700, 
+		height: 400, 
+		webPreferences: {
+			sandbox: false,
+			nodeIntegration: true,
+			preload: CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY, // `${__dirname}/assets/modal/modal.js`,
+			contextIsolation: true,
+			devTools: store.devMode
+		},
+		show: false,
+		frame: false,
+		roundedCorners: true
+	});
+	modal.setIcon(`${__dirname}/assets/ssg-icon.ico`);
+	// no window menu
+	modal.setMenu(null);
+	remote.enable(modal.webContents);
+	const queryParams = `devMode=${devMode}&muted=${muted}&sensitive=${sensitive}&voiceOver=${voiceOver}&version=${urlEncodedAppVersion()}`
+	modal.loadURL(`${CONFIG_WINDOW_WEBPACK_ENTRY}?${queryParams}`);
+	if (store.devMode) modal.webContents.openDevTools();
+	// modal.webContents.openDevTools(); // temp
+
+	modal.once('ready-to-show', () => {
+		modal.show();
+	});
+
+	modal.on('close', () => {
+		app.quit();
+	});
+
+	return;
+}
+
+function urlEncodedAppVersion(): string {
+	const version = encodeURIComponent(`${app.getVersion()} (${process.env.BUILD})`);
+	console.log('urlEncodedAppVersion', version);
+	return version;
+}
 
 function registerScreenSaver(scrPath: string, add: boolean): void {
 	if (add) {

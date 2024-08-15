@@ -45,11 +45,24 @@
         #options > div {
             margin-right: 24px;
         }
+        #options > div:last-child {
+            margin-right: 0;
+        }
+        .version {
+            flex: 15%;
+            color: gray;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
+            height: 100%;
+        }
         #controls {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
         }
+
         a.button {
             text-decoration: none;
             padding: 6px 12px;
@@ -86,7 +99,7 @@
         <div id="main-block">
             <div id="options">
                 <div class="icon">
-                    <img src="./ssg-icon-color.svg" alt="">
+                    <img src="/config_window/ssg-icon-color.svg" alt="">
                 </div>
                 <div class="checkboxes">
                     <div class="mute checkbox">
@@ -102,6 +115,7 @@
                         <label for="voice-over-checkbox">Activate VoiceOver</label>
                     </div>
                 </div>
+                <div class="version"><!-- added by script renderer --></div>
             </div>
             <div id="debug">
                 <div class="debug checkbox">

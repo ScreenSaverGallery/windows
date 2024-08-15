@@ -7,6 +7,41 @@ declare global {
     }
 }
 
+export class ConfigModal {
+    constructor(){}
+
+    muteChanged(event: any) {
+        const { checked } = event.target;
+        // console.log('muteChanged checked?', checked);
+        window.action.muted(checked);
+    }
+
+    sensitiveChanged(event: any) {
+        const { checked } = event.target;
+        window.action.sensitive(checked);
+    }
+
+    debugChanged(event: any) {
+        const { checked } = event.target;
+        window.action.devMode(checked);
+    }
+    
+    voiceOverChanged(event: any) {
+        const { checked } = event.target;
+        window.action.voiceOver(checked);
+    }
+    
+    openLink(link: string) {
+        window.action.openLink(link);
+    }
+    
+    closeWindow() {
+        window.action.close();
+        window.close();
+        return true;
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -14,8 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
         devMode: searchParams.get('devMode') === 'true',
         sensitive: searchParams.get('sensitive') === 'true',
         muted: searchParams.get('muted') === 'true',
-        voiceOver: searchParams.get('voiceOver') === 'true'
+        voiceOver: searchParams.get('voiceOver') === 'true',
+        version: searchParams.get('version')
     }
+    console.log('APP VERSION IN CONFIG', config.version);
     const links = {
         support: 'https://screensaver.gallery/support-us?app=win',
         contact: 'https://discord.com/invite/QJtRUYptRR',
@@ -27,67 +64,41 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sensitiveCheckboxElm) sensitiveCheckboxElm.checked = config.sensitive;
     const debugCheckboxElm : HTMLInputElement | null = document.querySelector('#debug-checkbox');
     if (debugCheckboxElm) debugCheckboxElm.checked = config.devMode;
-    const voiceOverCheckboxElm: HTMLInputElement | null = document.querySelector('#low-vision-checkbox');
+    const voiceOverCheckboxElm: HTMLInputElement | null = document.querySelector('#voice-over-checkbox');
     if (voiceOverCheckboxElm) voiceOverCheckboxElm.checked = config.voiceOver;
-    
+
     const supportLinkElm: HTMLLinkElement | null = document.querySelector('#support');
     const contactLinkElm: HTMLLinkElement | null = document.querySelector('#contact');
     const callLinkElm: HTMLLinkElement | null = document.querySelector('#call');
     const closeElm: HTMLLinkElement | null = document.querySelector('#close');
+    const versionElm: HTMLElement | null = document.querySelector('.version');
+
+    if (versionElm && config.version) versionElm.innerHTML = `<small>v${decodeURIComponent(config.version)}</small>`
+
+    const modal = new ConfigModal();
 
     supportLinkElm?.addEventListener('click', () => {
-        openLink(links.support);
+        modal.openLink(links.support);
     });
     contactLinkElm?.addEventListener('click', () => {
-        openLink(links.contact);
+        modal.openLink(links.contact);
     });
     callLinkElm?.addEventListener('click', () => {
-        openLink(links.call);
+        modal.openLink(links.call);
     });
     muteCheckboxElm?.addEventListener('change', (event: any) => {
-        muteChanged(event);
+        modal.muteChanged(event);
     });
     sensitiveCheckboxElm?.addEventListener('change', (event: any) => {
-        sensitiveChanged(event);
+        modal.sensitiveChanged(event);
     });
     voiceOverCheckboxElm?.addEventListener('change', (event: any) => {
-        voiceOverChanged(event);
+        modal.voiceOverChanged(event);
     });
     debugCheckboxElm?.addEventListener('change', (event: any) => {
-        debugChanged(event);
+        modal.debugChanged(event);
     });
     closeElm?.addEventListener('click', () => {
-        closeWindow();
+        modal.closeWindow();
     });
 });
-
-
-export function muteChanged(event: any) {
-    const { checked } = event.target;
-    // console.log('muteChanged checked?', checked);
-    window.action.muted(checked);
-}
-
-export function sensitiveChanged(event: any) {
-    const { checked } = event.target;
-    window.action.sensitive(checked);
-}
-
-export function debugChanged(event: any) {
-    const { checked } = event.target;
-    window.action.devMode(checked);
-}
-
-export function voiceOverChanged(event: any) {
-    const { checked } = event.target;
-    window.action.voiceOver(checked);
-}
-
-export function openLink(link: string) {
-    window.action.openLink(link);
-}
-
-export function closeWindow() {
-    window.close();
-    return true;
-}
