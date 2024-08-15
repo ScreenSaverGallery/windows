@@ -3,7 +3,6 @@ import * as remote from '@electron/remote/main';
 import { ipcMain } from 'electron';
 import { Store } from './app/store';
 import { ScreenSaverGallery } from './app/screen-saver-gallery';
-import { Updater } from './app/updater';
 import { v4 as uuidv4 } from 'uuid'; // module not found error
 import * as path from 'path';
 import * as ChildProcess from 'child_process';
