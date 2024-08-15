@@ -3,6 +3,7 @@ on: [push, pull_request]
 jobs:
     build_on_win:
         runs-on: windows-latest
+        environment: ScreenSaverGallery
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@master
