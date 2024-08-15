@@ -23,4 +23,6 @@
   DeleteRegValue HKCU "Control Panel\Desktop" "ScreenSaveTimeOut"
   # remove desktop shortcut
   Delete "$DESKTOP\ScreenSaverGallery.scr.lnk"
+  # delete install directory
+  Delete "$INSTDIR"
 !macroend
