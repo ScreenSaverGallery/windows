@@ -11,14 +11,14 @@ import { updateElectronApp, UpdateSourceType } from 'update-electron-app'
 // 🐶 TODO: add Tray (see: https://electronjs.org/docs/latest/api/tray)
 
 // update from github releases
-updateElectronApp({
-	updateSource: {
-		type: UpdateSourceType.ElectronPublicUpdateService,
-		repo: 'ScreenSaverGallery/windows'
-	},
-	updateInterval: '5 minutes',
-	notifyUser: false
-})
+// updateElectronApp({
+// 	updateSource: {
+// 		type: UpdateSourceType.ElectronPublicUpdateService,
+// 		repo: 'ScreenSaverGallery/windows' // see (watch) bug: https://github.com/electron/update-electron-app/issues/155
+// 	},
+// 	updateInterval: '5 minutes',
+// 	notifyUser: false
+// })
 
 declare const CONFIG_WINDOW_WEBPACK_ENTRY: string;
 declare const CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
