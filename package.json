@@ -1,7 +1,7 @@
 {
   "name": "screensavergallery",
   "productName": "ScreenSaverGallery",
-  "version": "1.1.7",
+  "version": "1.2.0",
   "description": "ScreenSaverGallery is the world`s only online gallery of contemporary digital art which utilizes the potential of the screensaver medium.",
   "main": ".webpack/main",
   "scripts": {
