@@ -12,12 +12,9 @@ export const rendererConfig: Configuration = {
   module: {
     rules,
   },
+  target: 'web', // <- crucial for working config window
   plugins,
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
-    fallback: {
-      "path": false,
-      "fs": false
-    }
   },
 };
