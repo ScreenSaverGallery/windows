@@ -6,7 +6,8 @@ import { ScreenSaverGallery } from './app/screen-saver-gallery';
 import { v4 as uuidv4 } from 'uuid'; // module not found error
 import * as path from 'path';
 import * as ChildProcess from 'child_process';
-import { updateElectronApp, UpdateSourceType } from 'update-electron-app'
+import { updateElectronApp, UpdateSourceType } from 'update-electron-app';
+import LOG from 'electron-log/main';
 
 // 🐶 TODO: add Tray? (see: https://electronjs.org/docs/latest/api/tray)
 
@@ -17,8 +18,9 @@ updateElectronApp({
 		repo: 'ScreenSaverGallery/windows', // default from package.json ... see (watch) bug: https://github.com/electron/update-electron-app/issues/155
 		host: 'https://github.com' // host has to be set to avoid error... not tested yet if it download latest release..., check if host has to be github or 'https://update.electronjs.org' service
 	},
-	updateInterval: '5 minutes',
-	notifyUser: false
+	updateInterval: '10 minutes',
+	notifyUser: true,
+	logger: LOG
 })
 
 declare const CONFIG_WINDOW_WEBPACK_ENTRY: string;
