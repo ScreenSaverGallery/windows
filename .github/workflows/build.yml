@@ -7,7 +7,7 @@ jobs:
         env:
           SSG_URL: ${{ vars.SSG_URL }}
           SSG_URL_DEV: ${{ vars.SSG_URL_DEV }}
-          BUILD: ${{ vars.BUILD }}
+          BUILD: ${{ github.run_number }}
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@master
