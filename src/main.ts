@@ -15,7 +15,7 @@ updateElectronApp({
 	updateSource: {
 		type: UpdateSourceType.ElectronPublicUpdateService,
 		repo: 'ScreenSaverGallery/windows', // default from package.json ... see (watch) bug: https://github.com/electron/update-electron-app/issues/155
-		host: 'https://update.electronjs.org' // host has to be set to avoid error... not tested yet if it download latest release..., check if host has to be github or 'https://update.electronjs.org' service
+		host: 'https://github.com' // host has to be set to avoid error... not tested yet if it download latest release..., check if host has to be github or 'https://update.electronjs.org' service
 	},
 	updateInterval: '5 minutes',
 	notifyUser: false
