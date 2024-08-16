@@ -67,6 +67,7 @@ app.on("ready", () => {
 		if (data.devMode) store.devMode = data.value;
 		if (data.sensitive) store.sensitive = data.value;
 		if (data.muted) store.muted = data.value;
+		if (data.voiceOver) store.voiceOver = data.value;
 		if (data.closed) app.quit();
 	});
 	
