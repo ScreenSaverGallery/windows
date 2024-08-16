@@ -8,17 +8,18 @@ import * as path from 'path';
 import * as ChildProcess from 'child_process';
 import { updateElectronApp, UpdateSourceType } from 'update-electron-app'
 
-// 🐶 TODO: add Tray (see: https://electronjs.org/docs/latest/api/tray)
+// 🐶 TODO: add Tray? (see: https://electronjs.org/docs/latest/api/tray)
 
 // update from github releases
-// updateElectronApp({
-// 	updateSource: {
-// 		type: UpdateSourceType.ElectronPublicUpdateService,
-// 		repo: 'ScreenSaverGallery/windows' // see (watch) bug: https://github.com/electron/update-electron-app/issues/155
-// 	},
-// 	updateInterval: '5 minutes',
-// 	notifyUser: false
-// })
+updateElectronApp({
+	updateSource: {
+		type: UpdateSourceType.ElectronPublicUpdateService,
+		repo: 'ScreenSaverGallery/windows', // default from package.json ... see (watch) bug: https://github.com/electron/update-electron-app/issues/155
+		host: 'https://github.com' // host has to be set to avoid error... not tested yet if it download latest release..., check if host has to be github or 'https://update.electronjs.org' service
+	},
+	updateInterval: '5 minutes',
+	notifyUser: false
+})
 
 declare const CONFIG_WINDOW_WEBPACK_ENTRY: string;
 declare const CONFIG_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
