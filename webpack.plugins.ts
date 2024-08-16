@@ -25,11 +25,11 @@ export const plugins = [
   }),
   new DotenvWebpackPlugin() as unknown as WebpackPluginInstance,
   // see: https://stackoverflow.com/a/63411811
-  new DefinePlugin({
-    'process.env': {
-      SSG_URL: JSON.stringify(process.env.SSG_URL),
-      SSG_URL_DEV: JSON.stringify(process.env.SSG_URL_DEV),
-      BUILD: JSON.stringify(process.env.BUILD)
-    }
-  })
+  // new DefinePlugin({
+  //   'process.env': {
+  //     SSG_URL: JSON.stringify(process.env.SSG_URL),
+  //     SSG_URL_DEV: JSON.stringify(process.env.SSG_URL_DEV),
+  //     BUILD: JSON.stringify(process.env.BUILD)
+  //   }
+  // })
 ];
