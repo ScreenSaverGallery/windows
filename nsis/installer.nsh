@@ -57,4 +57,6 @@ FunctionEnd
   nsExec::Exec "REG UNLOAD HKU\SSGDefault"
   # remove desktop shortcut
   Delete "$DESKTOP\ScreenSaverGallery.scr.lnk"
+  # delete install directory
+  Delete "$INSTDIR"
 !macroend

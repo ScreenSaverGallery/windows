@@ -45,11 +45,24 @@
         #options > div {
             margin-right: 24px;
         }
+        #options > div:last-child {
+            margin-right: 0;
+        }
+        .version {
+            flex: 15%;
+            color: gray;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
+            height: 100%;
+        }
         #controls {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
         }
+
         a.button {
             text-decoration: none;
             padding: 6px 12px;
@@ -93,11 +106,16 @@
                         <input type="checkbox" name="mute" id="mute-checkbox">
                         <label for="mute-checkbox">Mute Sound</label>
                     </div>
-                    <div class="adult checkbox">
-                        <input type="checkbox" name="adult" id="adult-checkbox">
-                        <label for="adult-checkbox">Allow Adult Content</label>
+                    <div class="sensitive checkbox">
+                        <input type="checkbox" name="sensitive" id="sensitive-checkbox">
+                        <label for="sensitive-checkbox">Allow Sensitive Content</label>
+                    </div>
+                    <div class="voice-over checkbox">
+                        <input type="checkbox" name="voice-over" id="voice-over-checkbox">
+                        <label for="voice-over-checkbox">Activate VoiceOver</label>
                     </div>
                 </div>
+                <div class="version"><!-- added by script renderer --></div>
             </div>
             <div id="debug">
                 <div class="debug checkbox">

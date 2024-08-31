@@ -1,0 +1,30 @@
+name: Release
+on:
+    push:
+      tags:
+        - 'v*'
+jobs: 
+    publish_on_win:
+        runs-on: windows-latest
+        environment: ScreenSaverGallery
+        env:
+          SSG_URL: ${{ vars.SSG_URL }}
+          SSG_URL_DEV: ${{ vars.SSG_URL_DEV }}
+          BUILD: ${{ github.run_number }}
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@master
+              with:
+                node-version: 20
+            - name: create env file
+              run: |
+                echo SSG_URL=${{ vars.SSG_URL }} >> .env
+                echo SSG_URL_DEV=${{ vars.SSG_URL_DEV }} >> .env
+                echo BUILD=${{ github.run_number }} >> .env
+                type .env
+            - name: install dependencies
+              run: npm install
+            - name: publish
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npm run publish

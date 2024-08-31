@@ -9,9 +9,11 @@ contextBridge.exposeInMainWorld('action', {
     close: close,
     devMode: setDevMode,
     muted: setMuted,
-    adult: setAdult
+    sensitive: setSensitive,
+    voiceOver: setVoiceOver
 });
-// 
+//
+
 function setDevMode(value: boolean) {
     sendMessage({'devMode': true, value: value});
 }
@@ -20,8 +22,15 @@ function setMuted(value: boolean) {
     sendMessage({'muted': true, value: value});
 }
 
-function setAdult(value: boolean) {
-    sendMessage({'adult': true, value: value});
+function setSensitive(value: boolean) {
+    sendMessage({'sensitive': true, value: value});
+}
+
+function setVoiceOver(value: boolean) {
+    sendMessage({'voiceOver': true, value: value});
+}
+function close(): void {
+    sendMessage({'closed': true});
 }
 
 function openLink(link: string) {

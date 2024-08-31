@@ -1,8 +1,10 @@
 import { BrowserWindow, app, screen } from 'electron';
-import { SSG_URL, SSG_URL_DEV, BUILD } from './env';
+// import { SSG_URL, SSG_URL_DEV, BUILD } from './env';
+// rxjs
+import { Subject } from 'rxjs';
 
-const mainURL = SSG_URL;
-const devURL = SSG_URL_DEV;
+const mainURL = process.env.SSG_URL;
+const devURL = process.env.SSG_URL_DEV;
 const localURL = "file://" + __dirname + "/assets/local/default.html";
 
 
@@ -10,6 +12,8 @@ export class ScreenSaverGallery {
     private isPreview = false;
 	private devMode = false;
 	private store: any;
+	windows: BrowserWindow[] = [];
+	onClose: Subject<boolean> = new Subject();
 
 	constructor(isPreview: boolean, devMode: boolean, store: any) {
         this.isPreview = isPreview;
@@ -23,14 +27,21 @@ export class ScreenSaverGallery {
 		}
 		// screens
 		let screens = screen.getAllDisplays();
-		const windows = [];
 		// console.log("screens", screens);
 
 		for (const s of screens) {
+			// console.log('screen', s);
 			const w = this.createSSGWindow(s.bounds.x, s.bounds.y, s.bounds.width, s.bounds.height, this.devMode);
-			windows.push(w);
+			this.windows.push(w);
 		}
     }
+
+	destroy(): void {
+		for (const w of this.windows) {
+			w.destroy();
+		}
+		this.windows.length = 0;
+	} 
 
 	private createSSGWindow(x: number, y: number, width: number, height: number, dev: boolean = false) {
 		let window = new BrowserWindow({
@@ -54,7 +65,7 @@ export class ScreenSaverGallery {
 		// set always on top
 		window.setAlwaysOnTop(true);
 		// set user agent
-		window.webContents.setUserAgent(window.webContents.getUserAgent() + ` SSG/${app.getVersion()} (${BUILD})`);
+		window.webContents.setUserAgent(window.webContents.getUserAgent() + ` SSG/${app.getVersion()} (${process.env.BUILD})`);
 		// hide the cursor
 		window.webContents.on('dom-ready', (event: any) => {
             let css = '* { cursor: none !important; pointer-events: none; }';
@@ -74,7 +85,11 @@ export class ScreenSaverGallery {
 	    });
 		
 		// deinit
-        window.on("closed", () => { window = null });
+        window.on("closed", () => { 
+			this.destroy();
+			this.onClose.next(true);
+			window = null;
+		});
 
 		return window;
 	}
@@ -84,9 +99,10 @@ export class ScreenSaverGallery {
 		// var code = `window.navigator['uuid'] = ${this.id}`;
 		const contents = window.webContents;
 		var code = '';
-		code += `navigator.id = "${this.store.getId}";`;
-		code += `navigator.muted = ${this.store.getMuted};`;
-		code += `navigator.adult = ${this.store.getAdult};`;
+		code += `navigator.id = "${this.store.id}";`;
+		code += `navigator.muted = ${this.store.muted};`;
+		code += `navigator.sensitive = ${this.store.sensitive};`;
+		code += `navigator.voiceOver = ${this.store.voiceOver};`;
 		if (!dev) {
 			// exit if mousemove, keydown, click
 			code += 'document.addEventListener("mousemove", () => { window.close(); });';
@@ -96,7 +112,7 @@ export class ScreenSaverGallery {
 		} else {
 			code += 'document.addEventListener("keydown", (e) => { if (e.keyCode == 27) { window.close(); } });';
 		}
-		code = `(() => {${code}})();`;
+		code = `(() => {${code}})();`; // run after document completely loaded
 		contents.executeJavaScript(code);
 	}
 }
