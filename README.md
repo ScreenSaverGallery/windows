@@ -19,13 +19,13 @@ Pack the app for selected targets (see: [`package.json`](package.json))
 - **make** `yarn make`
 Create windows nsis installator (see: [`package.json`](package.json))
 
-> **Note**: You must setup your own `src/app/env.ts` file and its respective variables. The file `src/app/env.example.ts` tells you how. These variables (urls) are not yet publicly available as the content is subject to further development. If you want to participate on ScreenSaverGallery project, feel free to contact us to get the active urls. If you want to use this code for your own needs, set up urls of your choice. In that case also do not use the name `ScreenSaverGallery` as is and  replace the ScreenSaverGallery icon with your own.
+> **Note**: You must setup your own `.env` file and its respective variables. The file `.env.example` tells you how. These variables (urls) are not yet publicly available as the content is subject to further development. If you want to participate on ScreenSaverGallery project, feel free to contact us to get the active urls. If you want to use this code for your own needs, set up urls of your choice. In that case also do not use the name `ScreenSaverGallery` as is and  replace the ScreenSaverGallery icon with your own.
 
 
 ### For Users:
 1. Go to [ScreenSaverGallery](https://screensaver.gallery/get) website
 2. Download and install the latest ScreenSaverGallery
-3. The ScreenSaverGallery should be set as default during the installation process. If not, open ScreenSaverGallery
+3. The ScreenSaverGallery should be set as default during the installation process. If not, open ScreenSaverGallery from the desktop icon.
 
 ## How It Works
 The technical implementation of ScreenSaverGallery is straightforward yet effective. The screensaver is essentially an electron app (chromeless browser) which displays curated content from a specified URL. Screen savers on Windows system are regular executable files (exe) with `.scr` extension. The system can run these files with a few special arguments (see: [`src/main.ts`](src/main.ts)) to tell the program show options, preview or a proper screensaver.
