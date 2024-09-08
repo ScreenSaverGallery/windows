@@ -1,6 +1,8 @@
 name: Release
 on:
     push:
+      branches:
+        - admin-setup
       tags:
         - 'v*'
 jobs: 

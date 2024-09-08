@@ -1,5 +1,11 @@
 name: Build
-on: [push, pull_request]
+on:
+  push: 
+    branches:
+      - admin-setup
+  pull_request:
+    branches:
+      - admin-setup
 jobs:
     build_on_win:
         runs-on: windows-latest
